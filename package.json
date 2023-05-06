@@ -2,6 +2,7 @@
   "name": "ts-template",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "start:build": "tsc -w",
