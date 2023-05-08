@@ -1,0 +1,22 @@
+lockfileVersion: '6.0'
+
+dependencies:
+  dotenv:
+    specifier: ^16.0.3
+    version: 16.0.3
+
+devDependencies:
+  '@types/node':
+    specifier: ^20.1.0
+    version: 20.1.0
+
+packages:
+
+  /@types/node@20.1.0:
+    resolution: {integrity: sha512-O+z53uwx64xY7D6roOi4+jApDGFg0qn6WHcxe5QeqjMaTezBO/mxdfFXIVAVVyNWKx84OmPB3L8kbVYOTeN34A==}
+    dev: true
+
+  /dotenv@16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+    dev: false
