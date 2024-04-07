@@ -24,7 +24,8 @@ async function ensureDataFile() {
 const displayTaskActionMenu = async (taskIndex) => {
     console.clear();
     const task = tasks[taskIndex];
-    console.log(chalk.bold(chalk.underline(`Task: ${task.title}`)));
+    const statusLabel = task.done ? chalk.green("DONE") : chalk.yellow("PENDING");
+    console.log(chalk.bold(chalk.underline(`Task (${statusLabel}): ${task.title}`)));
     console.log(`\nDescription: ${task.description ? task.description : chalk.italic("None")}\n`);
     const taskActionChoice = (await c.select({
         message: "Select an action",
@@ -67,14 +68,15 @@ const displayTaskListMenu = async () => {
     while (true) {
         console.clear();
         const taskOptions = tasks.map((task, index) => {
+            const statusLabel = task.done
+                ? chalk.green("DONE")
+                : chalk.yellow("PENDING");
             let truncatedTitle = task.title;
             if (task.title.length > MAX_TITLE_LENGTH) {
                 truncatedTitle = task.title.substring(0, MAX_TITLE_LENGTH - 3) + "...";
             }
             return {
-                label: task.done
-                    ? chalk.strikethrough(`${truncatedTitle}`)
-                    : `${truncatedTitle}`,
+                label: `${statusLabel} - ${truncatedTitle}`,
                 value: index.toString(),
             };
         });
