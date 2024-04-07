@@ -1,7 +1,7 @@
 {
-	"name": "ts-template",
+	"name": "termtask",
 	"version": "1.0.0",
-	"description": "",
+	"description": "The todo list for keyboard warriors who scoff at fancy interfaces ⌨️⚔️",
 	"type": "module",
 	"main": "app.js",
 	"scripts": {
@@ -10,7 +10,7 @@
 		"start": "concurrently npm:start:*"
 	},
 	"keywords": [],
-	"author": "",
+	"author": "tsensei",
 	"license": "ISC",
 	"devDependencies": {
 		"@types/node": "^20.1.0"
