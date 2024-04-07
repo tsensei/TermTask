@@ -1,27 +1,27 @@
 {
-	"name": "termtask",
-	"version": "1.0.0",
-	"description": "The todo list for keyboard warriors who scoff at fancy interfaces ⌨️⚔️",
-	"type": "module",
-	"main": "app.js",
-	"scripts": {
-		"start:build": "tsc -w",
-		"start:run": "nodemon build/app.js",
-		"start": "concurrently npm:start:*"
-	},
-	"keywords": [],
-	"author": "tsensei",
-	"license": "ISC",
-	"devDependencies": {
-		"@types/node": "^20.1.0"
-	},
-	"dependencies": {
-		"@clack/prompts": "^0.7.0",
-		"boxen": "^7.1.1",
-		"dotenv": "^16.0.3",
-		"picocolors": "^1.0.0"
-	},
-	"bin": {
-		"TermTask": "./build/app.js"
-	}
+  "name": "termtask",
+  "version": "1.0.0",
+  "description": "The todo list for keyboard warriors who scoff at fancy interfaces ⌨️⚔️",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/app.js",
+    "start": "concurrently npm:start:*"
+  },
+  "keywords": [],
+  "author": "tsensei",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.1.0"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "boxen": "^7.1.1",
+    "dotenv": "^16.0.3",
+    "picocolors": "^1.0.0"
+  },
+  "bin": {
+    "termtask": "./build/app.js"
+  }
 }

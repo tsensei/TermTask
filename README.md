@@ -11,13 +11,13 @@ TermTask is a simple, no-frills terminal-based task manager. It empowers you to 
 **Global Installation**
 
 ```bash
-npm install -g TermTask
+npm install -g termtask
 ```
 
 Once installed, start conquering your tasks with:
 
 ```bash
-TermTask
+termtask
 ```
 
 ## Usage
