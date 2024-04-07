@@ -1,8 +1,9 @@
-import * as c from '@clack/prompts';
-import p from 'picocolors';
-import { exitApplication } from './lib/helpers.js';
-import boxen from 'boxen';
-import { createDataFile, loadTasks, saveTasks, validDataFileExists, } from './lib/data.js';
+#!/usr/bin/env node
+import * as c from "@clack/prompts";
+import chalk from "chalk";
+import { exitApplication } from "./lib/helpers.js";
+import boxen from "boxen";
+import { createDataFile, loadTasks, saveTasks, validDataFileExists, } from "./lib/data.js";
 const MAX_TITLE_LENGTH = 30;
 let tasks;
 const addTask = async (value) => {
@@ -23,42 +24,42 @@ async function ensureDataFile() {
 const displayTaskActionMenu = async (taskIndex) => {
     console.clear();
     const task = tasks[taskIndex];
-    console.log(p.bold(p.underline(`Task: ${task.title}`)));
-    console.log(`\nDescription: ${task.description ? task.description : p.italic('None')}\n`);
+    console.log(chalk.bold(chalk.underline(`Task: ${task.title}`)));
+    console.log(`\nDescription: ${task.description ? task.description : chalk.italic("None")}\n`);
     const taskActionChoice = (await c.select({
-        message: 'Select an action',
+        message: "Select an action",
         options: [
             !task.done
-                ? { label: 'Mark Done', value: 'markDone' }
-                : { label: 'Mark undone', value: 'markUndone' },
-            { label: 'Delete', value: 'delete' },
-            { label: 'Go Back', value: 'goBack' },
-            { label: 'Quit', value: 'exitApplication' },
+                ? { label: "Mark Done", value: "markDone" }
+                : { label: "Mark undone", value: "markUndone" },
+            { label: "Delete", value: "delete" },
+            { label: "Go Back", value: "goBack" },
+            { label: "Quit", value: "exitApplication" },
         ],
     }));
     switch (taskActionChoice) {
-        case 'markDone':
+        case "markDone":
             tasks[taskIndex].done = true;
             await saveTasks(tasks);
-            console.log(p.green('Task marked as done!'));
+            console.log(chalk.green("Task marked as done!"));
             break;
-        case 'markUndone':
+        case "markUndone":
             tasks[taskIndex].done = false;
             await saveTasks(tasks);
-            console.log(p.green('Task marked as undone!'));
+            console.log(chalk.green("Task marked as undone!"));
             break;
-        case 'delete':
+        case "delete":
             tasks.splice(taskIndex, 1);
             await saveTasks(tasks);
-            console.log(p.yellow('Task deleted!'));
+            console.log(chalk.yellow("Task deleted!"));
             break;
-        case 'goBack':
+        case "goBack":
             return;
-        case 'exitApplication':
+        case "exitApplication":
             exitApplication();
             break;
         default:
-            console.log(p.red('Invalid choice!'));
+            console.log(chalk.red("Invalid choice!"));
     }
     checkPressedExitKey(taskActionChoice);
 };
@@ -68,25 +69,25 @@ const displayTaskListMenu = async () => {
         const taskOptions = tasks.map((task, index) => {
             let truncatedTitle = task.title;
             if (task.title.length > MAX_TITLE_LENGTH) {
-                truncatedTitle = task.title.substring(0, MAX_TITLE_LENGTH - 3) + '...';
+                truncatedTitle = task.title.substring(0, MAX_TITLE_LENGTH - 3) + "...";
             }
             return {
                 label: task.done
-                    ? p.strikethrough(`${truncatedTitle}`)
+                    ? chalk.strikethrough(`${truncatedTitle}`)
                     : `${truncatedTitle}`,
                 value: index.toString(),
             };
         });
-        taskOptions.push({ label: 'Go Back', value: 'goBack' });
-        taskOptions.push({ label: 'Quit', value: 'exitApplication' });
+        taskOptions.push({ label: "Go Back", value: "goBack" });
+        taskOptions.push({ label: "Quit", value: "exitApplication" });
         const selectedTaskChoice = (await c.select({
-            message: 'Select a task',
+            message: "Select a task",
             options: taskOptions,
         }));
-        if (selectedTaskChoice === 'goBack') {
+        if (selectedTaskChoice === "goBack") {
             break;
         }
-        else if (selectedTaskChoice === 'exitApplication') {
+        else if (selectedTaskChoice === "exitApplication") {
             exitApplication();
         }
         else {
@@ -99,23 +100,23 @@ const displayTaskListMenu = async () => {
 const displayMainMenu = async () => {
     while (true) {
         console.clear();
-        console.log(boxen('Welcome to TermTask. Manage your tasks efficiently.', {
-            textAlignment: 'center',
+        console.log(boxen("Welcome to TermTask. Manage your tasks efficiently.", {
+            textAlignment: "center",
             padding: 1,
-            borderStyle: 'double',
-            borderColor: 'cyan',
+            borderStyle: "double",
+            borderColor: "cyan",
         }));
         const mainInterfaceChoice = (await c.select({
-            message: 'Select an action',
+            message: "Select an action",
             options: [
-                { label: 'Add Task', value: 'addTask' },
-                { label: 'List Tasks', value: 'listTasks' },
-                { label: 'Quit', value: 'exitApplication' },
+                { label: "Add Task", value: "addTask" },
+                { label: "List Tasks", value: "listTasks" },
+                { label: "Quit", value: "exitApplication" },
             ],
         }));
-        if (mainInterfaceChoice === 'addTask') {
+        if (mainInterfaceChoice === "addTask") {
             const taskTitle = (await c.text({
-                message: 'Add a new ToDo :',
+                message: "Add a new ToDo :",
                 validate(value) {
                     if (value.length === 0)
                         return `Title is required!`;
@@ -125,7 +126,7 @@ const displayMainMenu = async () => {
             }));
             checkPressedExitKey(taskTitle);
             const taskDescription = (await c.text({
-                message: 'Add descriptive note :',
+                message: "Add descriptive note :",
             }));
             checkPressedExitKey(taskDescription);
             await addTask({
@@ -134,10 +135,10 @@ const displayMainMenu = async () => {
                 done: false,
             });
         }
-        else if (mainInterfaceChoice === 'listTasks') {
+        else if (mainInterfaceChoice === "listTasks") {
             await displayTaskListMenu();
         }
-        else if (mainInterfaceChoice === 'exitApplication') {
+        else if (mainInterfaceChoice === "exitApplication") {
             exitApplication();
         }
         checkPressedExitKey(mainInterfaceChoice);

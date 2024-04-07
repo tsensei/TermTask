@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import * as c from "@clack/prompts";
-import p from "picocolors";
+import chalk from "chalk";
 import { exitApplication } from "./lib/helpers.js";
 import boxen from "boxen";
 import {
@@ -38,9 +38,11 @@ const displayTaskActionMenu = async (taskIndex: number) => {
   console.clear();
   const task = tasks[taskIndex];
 
-  console.log(p.bold(p.underline(`Task: ${task.title}`)));
+  console.log(chalk.bold(chalk.underline(`Task: ${task.title}`)));
   console.log(
-    `\nDescription: ${task.description ? task.description : p.italic("None")}\n`
+    `\nDescription: ${
+      task.description ? task.description : chalk.italic("None")
+    }\n`
   );
 
   const taskActionChoice = (await c.select({
@@ -59,17 +61,17 @@ const displayTaskActionMenu = async (taskIndex: number) => {
     case "markDone":
       tasks[taskIndex].done = true;
       await saveTasks(tasks);
-      console.log(p.green("Task marked as done!"));
+      console.log(chalk.green("Task marked as done!"));
       break;
     case "markUndone":
       tasks[taskIndex].done = false;
       await saveTasks(tasks);
-      console.log(p.green("Task marked as undone!"));
+      console.log(chalk.green("Task marked as undone!"));
       break;
     case "delete":
       tasks.splice(taskIndex, 1);
       await saveTasks(tasks);
-      console.log(p.yellow("Task deleted!"));
+      console.log(chalk.yellow("Task deleted!"));
       break;
     case "goBack":
       return;
@@ -77,7 +79,7 @@ const displayTaskActionMenu = async (taskIndex: number) => {
       exitApplication();
       break;
     default:
-      console.log(p.red("Invalid choice!"));
+      console.log(chalk.red("Invalid choice!"));
   }
 
   checkPressedExitKey(taskActionChoice);
@@ -95,7 +97,7 @@ const displayTaskListMenu = async () => {
 
       return {
         label: task.done
-          ? p.strikethrough(`${truncatedTitle}`)
+          ? chalk.strikethrough(`${truncatedTitle}`)
           : `${truncatedTitle}`,
         value: index.toString(),
       };
