@@ -1,6 +1,6 @@
 {
   "name": "termtask",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The todo list for keyboard warriors who scoff at fancy interfaces ⌨️⚔️",
   "type": "module",
   "main": "app.js",
